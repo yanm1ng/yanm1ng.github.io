@@ -17,6 +17,7 @@
   <link rel="stylesheet" type="text/css" href="css/header.css">
   <link rel="stylesheet" type="text/css" href="css/image.css">
   <link rel="stylesheet" type="text/css" href="css/menu.css">
+  <link href="//cdn.bootcss.com/semantic-ui/2.1.8/components/popup.css" rel="stylesheet">
 
   <link rel="stylesheet" type="text/css" href="css/divider.css">
   <link rel="stylesheet" type="text/css" href="css/dropdown.css">
@@ -175,9 +176,9 @@
             <i class="fa fa-tag" id="orange"></i><span id="orange"> HTML </span>
             <i class="fa fa-tag" id="green"></i><span id="green"> CSS</span>
           </h4>
-	      <a class="ui large button">Read More</a>
+          <button class="ui inverted blue button">Read More</button>
 
-	      <h4 class="ui horizontal header divider">
+          <h4 class="ui horizontal header divider">
 	        <a href="#">Case Studies</a>
 	      </h4>
 	      
@@ -190,7 +191,7 @@
           <h4 class="ui horizontal divider header">
             <i class="fa fa-tag" id="blue"></i><span id="blue"> PHP</span>
           </h4>
-	      <a class="ui large button">Read more</a>
+          <button class="ui inverted blue button">Read More</button>
 	    
 	    </div>
 	  </div>
@@ -219,12 +220,12 @@
               <i class="fa fa-github"></i>
             </button>
           </a>
-          <a href="">
+          <a href="" id="wechat">
             <button class="ui circular linkedin icon button" style="background-color: #1fa67a">
               <i class="fa fa-wechat"></i>
             </button>
           </a>
-          <a href="">
+          <a href="" id="qq">
             <button class="ui circular linkedin icon button">
               <i class="fa fa-qq"></i>
             </button>
@@ -240,15 +241,26 @@
   </div>
 
 </div>
-	<script src="js/jquery.min.js"></script>
+  <script src="js/jquery.min.js"></script>
   <script src="js/visibility.js"></script>
   <script src="js/sidebar.js"></script>
   <script src="js/transition.js"></script>
+  <script src="//cdn.bootcss.com/semantic-ui/2.1.8/components/popup.js"></script>
   <script>
     $(document).ready(function () {
         $('.thumb').click(function () {
             $(this).html('<i class="fa fa-thumbs-up"></i> 谢谢鼓励');
         });
+        $('#wechat').popup({
+            position : 'bottom center',
+            title    : 'Wechat:',
+            content  : 'amazingym'
+        })
+        $('#qq').popup({
+          position : 'bottom center',
+          title    : 'QQ:',
+          content  : '644169721'
+        })
     });
   </script>
 </body>
