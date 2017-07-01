@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      React中的样式处理 | Vexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+  <script src="/js/gitment.js"></script>
+</head>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Vexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>React中的样式处理</h2>
+  <p class="post-date">2017-07-01</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body">
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>在 React 中，样式处理是至关重要的一环，也是当前非常热门的话题  </p>
+</blockquote>
+<h2 id="1-基本样式处理"><a href="#1-基本样式处理" class="headerlink" title="1.基本样式处理"></a>1.基本样式处理</h2><p>React 组件最终会被渲染成 HTML，所以我们可以使用原先 HTML 设置 CSS 一样的方法来设置样式。我们可以设置 className props 来添加类名，也可以通过 style props 来给组件设置行内样式，这里的 style props 是一个对象。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">render() &#123;</div><div class="line">  <span class="keyword">const</span> style = &#123;</div><div class="line">    <span class="attr">color</span>: <span class="string">'green'</span>,</div><div class="line">    <span class="attr">marginTop</span>: <span class="number">10</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">  	&lt;Component style=&#123;style&#125; /&gt;</div><div class="line">  )</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意点：</p>
+<h3 id="样式中的像素值"><a href="#样式中的像素值" class="headerlink" title="样式中的像素值"></a>样式中的像素值</h3><p>当设置 width 和 height 这类与大小有关的样式时，大部分会以像素为单位，为了提高效率，React 会自动对这样的属性添加 px。但对于某些支持 px 为单位同时还支持数字直接作为值的属性，React 并不添加 px，如 lineHeight。</p>
+<h3 id="使用-classnames-库"><a href="#使用-classnames-库" class="headerlink" title="使用 classnames 库"></a>使用 classnames 库</h3><p>我们可以使用 classnames 库来动态操作类名。</p>
+<p>如果不使用 classnames 库就需要这样处理类名：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; disabled, loading, label &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">let</span> btnCls = <span class="string">'btn'</span></div><div class="line">    <span class="keyword">if</span> (disabled) &#123;</div><div class="line">      btnCls += <span class="string">' btn-disabled'</span></div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (loading) &#123;</div><div class="line">      btnCls += <span class="string">' btn-loading'</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;button className=&#123;btnCls&#125;&gt;&#123;label&#125;&lt;/button&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用 classnames 库之后代码的可读性会更高：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"><span class="keyword">import</span> classnames <span class="keyword">from</span> <span class="string">'classnames'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">Button</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; disabled, loading, label &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">const</span> btnCls = classnames(&#123;</div><div class="line">      <span class="string">'btn'</span>: <span class="literal">true</span>,</div><div class="line">      <span class="string">'btn-disabled'</span>: disabled,</div><div class="line">      <span class="string">'btn-loading'</span>: loading</div><div class="line">    &#125;)</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;button className=&#123;btnCls&#125;&gt;&#123;label&#125;&lt;/button&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="2-CSS-Modules"><a href="#2-CSS-Modules" class="headerlink" title="2.CSS Modules"></a>2.CSS Modules</h2><p>CSS 模块化重要的是解决两个问题：CSS 样式的导入和导出。灵活按需导入以便复用代码，导出时要能够隐藏内部作用域，以免造成全局污染。Sass、Less、PostCss 等试图解决 CSS 编程能力弱的问题，但并没有解决模块化的问题。</p>
+<ul>
+<li><p>全局污染</p>
+<p>CSS 使用全局选择器机制来设置样式，优点是书写方便。缺点是所有的样式都是全局生效，可能会被覆盖，由此产生了非常丑陋的 !important。</p>
+</li>
+<li><p>命名混乱</p>
+<p>由于全局污染的问题，在多人开发过程中为了避免样式冲突，选择器越来越复杂，容易形成不同风格的命名风格，尤其在样式多的情况下，命名更加混乱。</p>
+</li>
+<li><p>依赖管理不彻底</p>
+<p>组件应该相互独立，引入一个组件式应该只需要引入它所需要的样式</p>
+</li>
+<li><p>无法共享变量</p>
+<p>复杂组件使用 JavaScript 和 CSS 来处理样式就会造成有些变量在代码中冗余</p>
+</li>
+<li><p>代码压缩不彻底</p>
+</li>
+</ul>
+<p>CSS 模块化的解决方案有很多，但主要有以下两类：</p>
+<h3 id="Inline-Style"><a href="#Inline-Style" class="headerlink" title="Inline Style"></a>Inline Style</h3><p>这种方案彻底抛弃了 CSS，使用 JavaScript 或 JSON 来书写样式，能使 CSS 和 JavaScript 一样拥有模块化能力，但缺点同样明显，Inline Style 几乎不能利用 CSS 本身强大的特性，比如级联、媒体查询等，:hover、:active 等伪类处理起来也比较复杂。与 React 有关的框架有 Radium、jsxstyle 和 react-style。</p>
+<h3 id="CSS-Modules"><a href="#CSS-Modules" class="headerlink" title="CSS Modules"></a>CSS Modules</h3><p>依旧使用 CSS，但使用 JavaScript 来管理样式依赖。CSS Modules 最大程度的结合了现有的 CSS 生态和 JavaScript 模块化的能力，其 API 非常简洁学习成本低。</p>
+<h3 id="使用CSS-Modules"><a href="#使用CSS-Modules" class="headerlink" title="使用CSS Modules"></a>使用CSS Modules</h3><p>我们可以利用 webpack 的 css-loader 来实现用 JavaScript 管理样式。</p>
+<p>启用 CSS Modules</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// webpack.config.js</span></div><div class="line">css?modules&amp;localIdentName=[name]_[local]_[hash:base64:<span class="number">5</span>]</div></pre></td></tr></table></figure>
+<p>加上 modules 即为启用，其中 localIndentName 是设置生成类名的命名规则。</p>
+<p>我们来看看 webpack 是如何进行转化的：</p>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">// Button.css</div><div class="line">.btn &#123;&#125;</div><div class="line">.disabled &#123;&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">// Button.js</span></div><div class="line"><span class="keyword">import</span> styles <span class="keyword">from</span> <span class="string">'./Button.css'</span></div><div class="line"><span class="built_in">console</span>.log(styles)</div><div class="line"></div><div class="line"><span class="comment">// =&gt;</span></div><div class="line"><span class="comment">// Object &#123;</span></div><div class="line"><span class="comment">//   btn: 'button_btn_abc12'</span></div><div class="line"><span class="comment">//   disabled: 'button_disabled_1ck1e'</span></div><div class="line"><span class="comment">// &#125;</span></div><div class="line"><span class="comment">//</span></div></pre></td></tr></table></figure>
+<p>结果这样的混淆处理后，class 的名称就是唯一的了，大大降低了项目中样式覆盖的几率。</p>
+<p><strong>注意点</strong></p>
+<ul>
+<li><p>样式默认局部</p>
+<p>使用了 CSS Modules 后，就相当于给每个 class 名外加了 :local，以此来实现样式的局部化，如果我们想切换到全局样式可以使用 :global 包裹，如下：</p>
+</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">.normal &#123;</div><div class="line">  color: green;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* 编译后 */</div><div class="line">:local(.normal) &#123;</div><div class="line">  color: green;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* 全局样式 */</div><div class="line">:global(.btn) &#123;</div><div class="line">  color: red;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/* 定义多个全局样式 */</div><div class="line">:global &#123;</div><div class="line">  .link &#123;</div><div class="line">    color: bule;</div><div class="line">  &#125;</div><div class="line">  .active &#123;</div><div class="line">    color: gray;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>使用 composes 来组合样式</li>
+</ul>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">.base &#123;</div><div class="line">  color: green;</div><div class="line">&#125;</div><div class="line">.normal &#123;</div><div class="line">  composes: base;</div><div class="line">  text-ali</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="code"><pre><div class="line">// Button.js</div><div class="line">import styles from './Button.css'</div><div class="line">console.log(styles)</div><div class="line"></div><div class="line">&lt;button className=&#123;styles.normal&#125;&gt;Normal&lt;/button&gt;</div><div class="line">// =&gt;</div><div class="line">// &lt;button class="button-base-abcde btn-normal-12345"&gt;Normal&lt;/button&gt;</div></pre></td></tr></table></figure></section>
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <span class="tag-code">react</span>
+
+      </div>
+    
+    <div class="money-like">
+      <div class="reward-btn">
+        赏
+        <span class="money-code">
+          <span class="alipay-code">
+            <div class="code-image"></div>
+            <b>使用支付宝打赏</b>
+          </span>
+          <span class="wechat-code">
+            <div class="code-image"></div>
+            <b>使用微信打赏</b>
+          </span>
+        </span>
+      </div>
+      <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+    </div>
+    <div class="qrcode">
+      <canvas id="share-qrcode"></canvas>
+      <p class="notice">扫描二维码，分享此文章</p>
+    </div>
+    <div id="comments"></div>
+  </article>
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanm1ng.github.io/2017/07/01/Day04-React中的样式处理/';
+    $('#article-banner').geopattern(url)
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png') 
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      var imageW = $(this).width()
+      var imageH = $(this).height()
+      
+      var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+      zoom = zoom < 1 ? 1 : zoom
+      zoom = zoom > 2 ? 2 : zoom
+      var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+      $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+      $('.image-view-wrap').addClass('wrap-active')
+      $('.image-view-wrap img').css({
+        'width': `${imageW}`,
+        'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+      })
+      $('html').css('overflow', 'hidden')
+
+      $('.image-view-wrap').on('click', function() {
+        $(this).remove()
+        $('html').attr('style', '')
+      })
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig != "undefined") {
+      var gitment = new Gitment({
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine == 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

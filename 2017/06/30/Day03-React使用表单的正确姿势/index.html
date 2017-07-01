@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  <title>
+    
+      React使用表单的正确姿势 | Vexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+  <script src="/js/gitment.js"></script>
+</head>
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Vexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>React使用表单的正确姿势</h2>
+  <p class="post-date">2017-06-30</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body">
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>在 WEB 应用开发中，表单的作用尤为重要，正是由于表单的存在才使得用户能够与 WEB 应用进行交互。其中表单在实际应用中还涉及到表单数据校验等复杂工作。</p>
+</blockquote>
+<h2 id="1-应用表单组件"><a href="#1-应用表单组件" class="headerlink" title="1.应用表单组件"></a>1.应用表单组件</h2><h3 id="文本框"><a href="#文本框" class="headerlink" title="文本框"></a>文本框</h3><p>文本框包含单行文本框 input 和多行文本框 textarea。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">  	<span class="keyword">super</span>(props)</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">inputValue</span>: <span class="string">''</span>,</div><div class="line">      <span class="attr">textAreaValue</span>: <span class="string">''</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  handleInputChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">inputValue</span>: e.target.value</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  handleTextAreaChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">textAreaValue</span>: e.target.value</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; inputValue, textAreaValue &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;p&gt;Input:&lt;/p&gt;</div><div class="line">      	&lt;input type="text" value=&#123;inputValue&#125; onChange=&#123;(e) =&gt; this.handleInputChange(e)&#125; /&gt;</div><div class="line">      	&lt;p&gt;TextArea:&lt;/p&gt;</div><div class="line">      	&lt;textarea value=&#123;textAreaValue&#125; onChange=&#123;(e) =&gt; this.handleTextAreaChange(e)&#125; /&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里我们可以发现在 JSX 中 textarea 和 input 一样利用 value props 来表示表单的值，而在 HTML 中 textarea 的值则是用 children 来表示。</p>
+<h3 id="单选框和复选框"><a href="#单选框和复选框" class="headerlink" title="单选框和复选框"></a>单选框和复选框</h3><p>在 HTML 中，用类型为 radio 的 input 标签来表示单选按钮。类似的，用类型为 checkbox 的 input 来表示复选框。这两种表单的 value 值一般是不会改变的，而是通过一个布尔值 checked 来表示是否为选中状态，但在 JSX 中用法有一些小区别。</p>
+<p><strong>Radio示例</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">  	<span class="keyword">super</span>(props)</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">radioValue</span>: <span class="string">''</span></div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  handleRadioChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      <span class="attr">radioValue</span>: e.target.value</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; radioValue &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;p&gt;Radio:&lt;/p&gt;</div><div class="line">      	&lt;lable&gt;</div><div class="line">          male:</div><div class="line">      	  &lt;input </div><div class="line">            type="radio"</div><div class="line">            value="male"</div><div class="line">            checked=&#123;radioValue === 'male'&#125;</div><div class="line">            onChange=&#123;(e) =&gt; this.handleRadioChange(e)&#125;</div><div class="line">           /&gt;</div><div class="line">        &lt;/lable&gt;</div><div class="line">        &lt;lable&gt;</div><div class="line">          female:</div><div class="line">      	  &lt;input </div><div class="line">            type="radio"</div><div class="line">            value="female"</div><div class="line">            checked=&#123;radioValue === 'female'&#125;</div><div class="line">            onChange=&#123;(e) =&gt; this.handleRadioChange(e)&#125;</div><div class="line">           /&gt;</div><div class="line">        &lt;/lable&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>复选框示例</strong></p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">  	<span class="keyword">super</span>(props)</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">checkedValues</span>: []</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  handleCheckBoxChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> &#123; checked, value &#125; = e.target</div><div class="line">    <span class="keyword">const</span> &#123; checkedValues &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">if</span> (checked &amp;&amp; checkedValues.indexOf(value) === <span class="number">-1</span>) &#123;</div><div class="line">      checkedValues.push(value)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      checkedValues.filter(<span class="function"><span class="params">item</span> =&gt;</span> item !== value)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      checkedValues</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; checkedValues &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;div&gt;</div><div class="line">        &lt;p&gt;Checkbox:&lt;/p&gt;</div><div class="line">      	&lt;lable&gt;</div><div class="line">          React:</div><div class="line">      	  &lt;input </div><div class="line">            type="checkbox"</div><div class="line">            value="react"</div><div class="line">            checked=&#123;checkedValues.indexOf('react') !== -1&#125;</div><div class="line">            onChange=&#123;(e) =&gt; this.handleCheckBoxChange(e)&#125;</div><div class="line">           /&gt;</div><div class="line">        &lt;/lable&gt;</div><div class="line">        &lt;lable&gt;</div><div class="line">          Vue:</div><div class="line">      	  &lt;input </div><div class="line">            type="checkbox"</div><div class="line">            value="vue"</div><div class="line">            checked=&#123;checkedValues.indexOf('vue') !== -1&#125;</div><div class="line">            onChange=&#123;(e) =&gt; this.handleCheckBoxChange(e)&#125;</div><div class="line">           /&gt;</div><div class="line">        &lt;/lable&gt;</div><div class="line">        &lt;lable&gt;</div><div class="line">          jQuery:</div><div class="line">      	  &lt;input </div><div class="line">            type="checkbox"</div><div class="line">            value="jquery"</div><div class="line">            checked=&#123;checkedValues.indexOf('jquery') !== -1&#125;</div><div class="line">            onChange=&#123;(e) =&gt; this.handleCheckBoxChange(e)&#125;</div><div class="line">           /&gt;</div><div class="line">        &lt;/lable&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看到这里一定会产生疑问了，命名很简单的单选框和复选框使用 JSX 后好像变得复杂了。的确，为了使 React 能够控制到表单的状态，我们使用了 onChange 方法。</p>
+<h3 id="下拉选择"><a href="#下拉选择" class="headerlink" title="下拉选择"></a>下拉选择</h3><p>在 HTML 的 select 元素中，存在单选和多选两种。在 JSX 语法中，同样可以设置 select 标签的 multiple={true} 来实现一个多选下拉列表。这里我们使用多选情况下作为例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> App extends React.Component &#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props)</div><div class="line">    <span class="keyword">this</span>.state = &#123;</div><div class="line">      <span class="attr">selectedValues</span>: []</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  hanleSelectChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> &#123; options &#125; = e.target</div><div class="line">    <span class="keyword">const</span> selectedValues = <span class="built_in">Object</span>.keys(options)</div><div class="line">      .filter(<span class="function"><span class="params">item</span> =&gt;</span> options[item].selected)</div><div class="line">      .map(<span class="function"><span class="params">item</span> =&gt;</span> options[item].value)</div><div class="line">    </div><div class="line">    <span class="keyword">this</span>.setState(&#123;</div><div class="line">      selectedValues</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">const</span> &#123; selectedValues &#125; = <span class="keyword">this</span>.state</div><div class="line">    <span class="keyword">return</span> (</div><div class="line">      &lt;select multiple=&#123;true&#125; value=&#123;selectedValues&#125; onChange=&#123;(e) =&gt; this.handleSelectChange(e)&#125;&gt;</div><div class="line">        &lt;option value="react"&gt;React&lt;/option&gt;</div><div class="line">        &lt;option value="vue"&gt;Vue&lt;/option&gt;</div><div class="line">        &lt;option value="jquery"&gt;jQuery&lt;/option&gt;</div><div class="line">      &lt;/div&gt;</div><div class="line">    )</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当然我们也可以像使用 checkbox 一样将每个 option 选项都利用 selectedValue.indexOf 来判断 selected 的值，只不过这样子不太优雅，而且 React 也会报出警告。</p>
+<blockquote>
+<p>Warning: Use the defaultValue or value props on <select> instead of setting selected on <option></option></select></p>
+</blockquote>
+<h2 id="2-受控组件"><a href="#2-受控组件" class="headerlink" title="2.受控组件"></a>2.受控组件</h2><p>在上面的例子中，每当表单组件的状态变化时，都会被写入到组件的 state 中，这样的组件在 React 中被称为受控组件。在受控组件中，组件渲染出的状态与它 value 绑定的 state 相对应。React 通过这种方式消除了组件的内部状态，是的应用内的整个状态可控。总结一下 React 受控组件更新 state 的流程：</p>
+<ol>
+<li>通过初始 state 设置表单默认值</li>
+<li>每当表单发生变化时，调用 onChange 事件处理器</li>
+<li>事件处理器通过合成事件对象 event 得到最新的状态，更新 state</li>
+<li>setState 触发视图的重新渲染，完成表单值的更新</li>
+</ol>
+<p>在 React 中数据是单向流动的。表单的数据源于组件的 state，并通过 props 的形式传入，这称之为单向的数据绑定。然后我们又通过 onChange 时间处理器将新的表单数据写回到 state 中，完成了整个双向绑定的过程。</p>
+<p>受控组件虽然复杂了很多但是方便我们对内部状态进行维护，通过这样的方式我们可以很轻松的完成表单的校验，使得表单的状态更可靠。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">handleInputChange = <span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</div><div class="line">  <span class="keyword">this</span>.setState(&#123;</div><div class="line">    <span class="attr">inputValue</span>: e.target.value.substring(<span class="number">0</span>, <span class="number">120</span>)</div><div class="line">  &#125;)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="3-非受控组件"><a href="#3-非受控组件" class="headerlink" title="3.非受控组件"></a>3.非受控组件</h2><p>React 同样允许我们使用非受控组件。那么什么是非受控组件呢？</p>
+<p>简单的说如果一个表单组件没有 value props，就可以成为非受控组件。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"></div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  handleSubmit = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">const</span> &#123; value &#125; = <span class="keyword">this</span>.refs.name</div><div class="line">    <span class="built_in">console</span>.log(value)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  render() &#123;</div><div class="line">    &lt;div&gt;</div><div class="line">      &lt;input type="text" ref="name" defaultValue="yanm1ng" /&gt;</div><div class="line">      &lt;button onClick=&#123;() =&gt; this.handleSubmit()&#125;&gt;Submit&lt;/button&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="4-对比受控组件与非受控组件"><a href="#4-对比受控组件与非受控组件" class="headerlink" title="4.对比受控组件与非受控组件"></a>4.对比受控组件与非受控组件</h2><h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>在受控组件中，每次表单的值发生变化都会调用一次 onChange 事件处理器，这确实会有一些性能上的损耗。这个问题可以通过 Flux/Redux 架构的方式来达到统一的组件状态。</p>
+<h3 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h3><p>受控组件需要额外添加 onChange 的事件绑定，并且可以对表单的值进行校验等操作。 非受控组件由于组件状态不会受到应用状态的控制，因此多了局部的内部状态，这是 React 不希望看到的。</p>
+</section>
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <span class="tag-code">react</span>
+
+      </div>
+    
+    <div class="money-like">
+      <div class="reward-btn">
+        赏
+        <span class="money-code">
+          <span class="alipay-code">
+            <div class="code-image"></div>
+            <b>使用支付宝打赏</b>
+          </span>
+          <span class="wechat-code">
+            <div class="code-image"></div>
+            <b>使用微信打赏</b>
+          </span>
+        </span>
+      </div>
+      <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+    </div>
+    <div class="qrcode">
+      <canvas id="share-qrcode"></canvas>
+      <p class="notice">扫描二维码，分享此文章</p>
+    </div>
+    <div id="comments"></div>
+  </article>
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanm1ng.github.io/2017/06/30/Day03-React使用表单的正确姿势/';
+    $('#article-banner').geopattern(url)
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png') 
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      var imageW = $(this).width()
+      var imageH = $(this).height()
+      
+      var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+      zoom = zoom < 1 ? 1 : zoom
+      zoom = zoom > 2 ? 2 : zoom
+      var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+      $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+      $('.image-view-wrap').addClass('wrap-active')
+      $('.image-view-wrap img').css({
+        'width': `${imageW}`,
+        'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+      })
+      $('html').css('overflow', 'hidden')
+
+      $('.image-view-wrap').on('click', function() {
+        $(this).remove()
+        $('html').attr('style', '')
+      })
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig != "undefined") {
+      var gitment = new Gitment({
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine == 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
