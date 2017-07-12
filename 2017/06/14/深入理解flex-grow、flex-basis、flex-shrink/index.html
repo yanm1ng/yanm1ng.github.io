@@ -14,12 +14,12 @@
   <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
   <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/plugins/gitment.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
   <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
   <script src="/js/qrious.js"></script>
-  <script src="/js/gitment.js"></script>
+<script src="/js/gitment.js"></script>
 </head>
   <body>
     <header class="header fixed-header">
@@ -137,7 +137,9 @@
       <div class="tags">
         <span>Tags:</span>
         
-  <span class="tag-code">深入理解系列</span>
+  <a href="/tags#深入理解系列" >
+    <span class="tag-code">深入理解系列</span>
+  </a>
 
       </div>
     
@@ -161,7 +163,9 @@
       <canvas id="share-qrcode"></canvas>
       <p class="notice">扫描二维码，分享此文章</p>
     </div>
-    <div id="comments"></div>
+    
+      <div id="comments"></div>
+    
   </article>
 </main>
 
@@ -211,6 +215,7 @@
     var gitmentConfig = "yanm1ng";
     if (gitmentConfig != "undefined") {
       var gitment = new Gitment({
+        id: "深入理解flex-grow、flex-basis、flex-shrink",
         owner: "yanm1ng",
         repo: "yanm1ng.github.io",
         oauth: {
@@ -261,6 +266,7 @@
     FastClick.attach(document.body);
   })
 </script>
+
 <script>
   var hasLine = 'false';
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){

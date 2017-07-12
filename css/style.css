@@ -100,6 +100,11 @@ h2.article-head {
 }
 .more {
   font-weight: 600;
+  display: inline-block;
+  transition: all 0.3s;
+}
+.more:hover {
+  transform: translateX(10px);
 }
 #article-banner {
   width: 100%;
@@ -197,9 +202,8 @@ h2.article-head {
   height: 5.5em;
   margin-left: -5.9em;
   padding: 10px 15px;
-  border: 1px solid #e5e5e5;
   background: #fff;
-  box-shadow: 0 1px 1px 1px #e5e5e5;
+  box-shadow: 0 0 0 1px #e5e5e5;
   border-radius: 4px;
 }
 .money-like .money-code span {
@@ -737,6 +741,7 @@ h2.article-head {
 }
 .time-section .section-list .section-list-item .archive-title:hover {
   color: #42b983;
+  padding-left: 10px;
 }
 .time-section .section-list .section-list-item .archive-date {
   color: #7f8c8d;

@@ -14,12 +14,12 @@
   <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
   <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
   <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/plugins/gitment.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
   <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
   <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
   <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
   <script src="/js/qrious.js"></script>
-  <script src="/js/gitment.js"></script>
+<script src="/js/gitment.js"></script>
 </head>
   <body>
     <header class="header fixed-header">
@@ -111,31 +111,19 @@
 <main class="app-body">
   <div id="tag-cloud">
     
-      <a class="tag2" data-name="tag-0">react</a>
+      <a class="tag1" data-name="tag-react">react</a>
     
-      <a class="tag3" data-name="tag-1">深入理解系列</a>
+      <a class="tag2" data-name="tag-深入理解系列">深入理解系列</a>
     
-      <a class="tag0" data-name="tag-2">php</a>
+      <a class="tag2" data-name="tag-前端开发">前端开发</a>
     
-      <a class="tag2" data-name="tag-3">前端开发</a>
+      <a class="tag2" data-name="tag-php">php</a>
     
   </div>
   
     <div class="tag-list">
-      <h3 class="tag-name" id="tag-0">react</h3>
+      <h3 class="tag-name" id="tag-react">react</h3>
       
-        <ul class="tag-preview">
-          <li>
-            <a href="/2017/06/26/Day01-初识React/">初识React</a>
-          </li>
-        </ul>
-        
-        <ul class="tag-preview">
-          <li>
-            <a href="/2017/06/28/Day02-React事件系统/">React事件系统</a>
-          </li>
-        </ul>
-        
         <ul class="tag-preview">
           <li>
             <a href="/2017/06/30/Day03-React使用表单的正确姿势/">React使用表单的正确姿势</a>
@@ -150,6 +138,18 @@
         
         <ul class="tag-preview">
           <li>
+            <a href="/2017/06/26/Day01-初识React/">初识React</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2017/06/28/Day02-React事件系统/">React事件系统</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
             <a href="/2017/06/17/React常见问题的整理/">React常见问题的整理</a>
           </li>
         </ul>
@@ -157,7 +157,7 @@
     </div>
     
     <div class="tag-list">
-      <h3 class="tag-name" id="tag-1">深入理解系列</h3>
+      <h3 class="tag-name" id="tag-深入理解系列">深入理解系列</h3>
       
         <ul class="tag-preview">
           <li>
@@ -174,18 +174,7 @@
     </div>
     
     <div class="tag-list">
-      <h3 class="tag-name" id="tag-2">php</h3>
-      
-        <ul class="tag-preview">
-          <li>
-            <a href="/2017/06/07/纪念那些年我写的PHP/">纪念那些年我写的PHP</a>
-          </li>
-        </ul>
-        
-    </div>
-    
-    <div class="tag-list">
-      <h3 class="tag-name" id="tag-3">前端开发</h3>
+      <h3 class="tag-name" id="tag-前端开发">前端开发</h3>
       
         <ul class="tag-preview">
           <li>
@@ -195,13 +184,32 @@
         
     </div>
     
+    <div class="tag-list">
+      <h3 class="tag-name" id="tag-php">php</h3>
+      
+        <ul class="tag-preview">
+          <li>
+            <a href="/2017/06/07/纪念那些年我写的PHP/">纪念那些年我写的PHP</a>
+          </li>
+        </ul>
+        
+    </div>
+    
 </main>
 
 <script>
   (function () {
-    var url = 'https://yanm1ng.github.io/tags/index.html';
-    $('#article-banner').geopattern(url);
+    var url = 'https://yanm1ng.github.io/tags/index.html'
+    $('#article-banner').geopattern(url)
     $('.header').removeClass('fixed-header')
+
+    var tag = location.hash.replace('#', '')
+    if (tag) {
+      var tagId = "#tag-" + tag;
+      $("html, body").animate({
+        scrollTop: $(tagId).offset().top 
+      }, 400)
+    }
   })();
 </script>
     <div class="scroll-top">
@@ -230,6 +238,7 @@
     FastClick.attach(document.body);
   })
 </script>
+
 <script>
   var hasLine = 'false';
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
