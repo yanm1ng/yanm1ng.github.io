@@ -10,7 +10,7 @@
   
   <title>
     
-      深入理解JavaScript原型和原型链 | Vexo
+      React组件间的通信 | Vexo
     
   </title>
   <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -112,8 +112,8 @@
 </header>
 
     <div id="article-banner">
-  <h2>深入理解JavaScript原型和原型链</h2>
-  <p class="post-date">2017-06-09</p>
+  <h2>React组件间的通信</h2>
+  <p class="post-date">2017-09-02</p>
   <div class="arrow-down">
     <a href="javascript:;"></a>
   </div>
@@ -121,42 +121,30 @@
 <main class="app-body">
   <article class="post-article">
     <section class="markdown-content"><blockquote>
-<p>原型是 JavaScript 中一个比较难理解的概念, 本文主要通过举例加图注的形式加深对原型及原型链概念的理解。如有不正之处，欢迎指出。</p>
+<p>React 是以组件组合的形式组织的，组件因为彼此是相互独立的。所以在嵌套关系上就会有三种不同的可能性：父组件向子组件通信、子组件向父组件通信和没有嵌套关系间的组件通信。</p>
 </blockquote>
-<p>在 JavaScript 中，每个函数都有一个 prototype 属性，当这个函数被用作构造函数来创建实例时，这个函数的 prototype 属性值会被作为原型赋值给所有对象实例，也就是说，所有实例的原型引用的是函数的 prototype 属性。</p>
-<p>为了证明这一点,我们可以在 Chrome 控制台输入：<br><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person();</div><div class="line"><span class="built_in">console</span>.log(person.__proto__ === Person.prototype); <span class="comment">// true</span></div></pre></td></tr></table></figure></p>
-<p>我们可以得到如下的关系图：<br><img src="http://ww4.sinaimg.cn/large/006tNc79gy1fg89af3vdaj30g0082t8x.jpg" alt=""></p>
-<p>既然实例对象和构造函数都可以指向原型，那么原型是否有属性指向构造函数或者实例呢？</p>
-<p>原型指向实例倒是没有，因为一个构造函数可以生成多个实例。但是原型指向构造函数倒是有的，这就要讲到第三个属性：constructor，每个原型都有一个 constructor 属性指向关联的构造函数。</p>
-<p>让我们来验证一下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(Person === Person.prototype.constructor); <span class="comment">// true</span></div></pre></td></tr></table></figure>
-<p>所以再更新下关系图：</p>
-<p><img src="http://ww2.sinaimg.cn/large/006tNc79gy1fg89eran0aj30g4082dg5.jpg" alt=""></p>
-<h4 id="属性查找"><a href="#属性查找" class="headerlink" title="属性查找"></a>属性查找</h4><p>当查找一个对象的属性时，JavaScript 会向上遍历原型链，直到找到给定名称的属性为止，到查找到达原型链的顶部（也就是 Object.prototype），如果仍然没有找到指定的属性，就会返回 undefined。</p>
-<p>举个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = <span class="string">'Kevin'</span>;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person();</div><div class="line"></div><div class="line">person.name = <span class="string">'Daisy'</span>;</div><div class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// Daisy</span></div><div class="line"></div><div class="line"><span class="keyword">delete</span> person.name;</div><div class="line"><span class="built_in">console</span>.log(person.name) <span class="comment">// Kevin</span></div></pre></td></tr></table></figure>
-<p>在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</p>
-<p>但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型，也就是 Person.prototype 中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</p>
-<h4 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h4><p>同样，person.prototype 对象也有 __proto__ 属性，它指向创建它的函数对象（Object）的 prototype</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(person.prototype.__proto__ === <span class="built_in">Object</span>.prototype) <span class="comment">//true</span></div></pre></td></tr></table></figure>
-<p>继续，Object.prototype对象也有  __proto__ 属性，但它比较特殊，为 null</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__) <span class="comment">//null</span></div></pre></td></tr></table></figure>
-<p>我们把这个由  __proto__ 串起来的直到 Object.prototype.__proto__ 为 null 的链叫做原型链。</p>
-<p><img src="http://ww1.sinaimg.cn/large/006tNc79gy1fg89mi2hv1j30ge0elt9d.jpg" alt=""></p>
-<h4 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h4><p>最后，补充两点大家可能不会注意的地方：</p>
-<p><strong>constructor</strong></p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params"></span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> person = <span class="keyword">new</span> Person();</div><div class="line"><span class="built_in">console</span>.log(person.constructor === Person); <span class="comment">// true</span></div></pre></td></tr></table></figure>
-<p>当获取 person.constructor 时，其实 person 中并没有 constructor 属性，当不能读取到constructor 属性时，会从 person 的原型也就是 Person.prototype 中读取，正好原型中有该属性，所以：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line">person.constructor === Person.prototype.constructor</div></pre></td></tr></table></figure>
-<p><strong>__proto__</strong></p>
-<p>其次是 __proto__ ，绝大部分浏览器都支持这个非标准的方法访问原型，然而它并不存在于 Person.prototype 中。实际上，它是来自于 Object.prototype ，与其说是一个属性，不如说是一个 getter/setter，当使用 obj.__proto__ 时，可以理解成返回了 Object.getPrototypeOf(obj)</p>
+<h2 id="1-父组件向子组件通信"><a href="#1-父组件向子组件通信" class="headerlink" title="1.父组件向子组件通信"></a>1.父组件向子组件通信</h2><p>React 的数据流动是单向的，所以父组件向子组件通信也是最常见的方式。父组件通过 props 向子组件传递需要的信息。</p>
+<h2 id="2-子组件向父组件通信"><a href="#2-子组件向父组件通信" class="headerlink" title="2.子组件向父组件通信"></a>2.子组件向父组件通信</h2><ul>
+<li><p>利用 props 传递回调函数</p>
+<p>子组件在 setState 的时候调用父组件传递过来的函数</p>
+</li>
+<li><p>利用全局事件</p>
+<p>利用 Node 自带的 events 模块</p>
+</li>
+</ul>
+<h2 id="3-跨级组件通信"><a href="#3-跨级组件通信" class="headerlink" title="3.跨级组件通信"></a>3.跨级组件通信</h2><ul>
+<li>通过 context 来实现跨父子组件间的通信</li>
+<li>层层传递 props</li>
+</ul>
+<h2 id="4-没有嵌套关系间的组件通信"><a href="#4-没有嵌套关系间的组件通信" class="headerlink" title="4.没有嵌套关系间的组件通信"></a>4.没有嵌套关系间的组件通信</h2><p>只能同全局事件机制，在 componentDidMount 事件中，如果组件挂载完成，订阅事件；当组件卸载的时候，在 componentWillUnmount  中取消事件的订阅。</p>
+<p>Pub/Sub 模式实现的过程很简单，即利用全局对象来保存事件，用广播的方式去处理事件，但容易带来逻辑混乱的问题。</p>
 </section>
     
       <div class="tags">
         <span>Tags:</span>
         
-  <a href="/tags#深入理解系列" >
-    <span class="tag-code">深入理解系列</span>
+  <a href="/tags#react" >
+    <span class="tag-code">react</span>
   </a>
 
       </div>
@@ -189,7 +177,7 @@
 
 <script>
   (function () {
-    var url = 'https://yanm1ng.github.io/2017/06/09/深入理解JavaScript原型和原型链/';
+    var url = 'https://yanm1ng.github.io/2017/09/02/Day05-组件间的通信/';
     var banner = 'undefined'
     if (banner) {
       $('#article-banner').css({
@@ -240,7 +228,7 @@
     var gitmentConfig = "yanm1ng";
     if (gitmentConfig != "undefined") {
       var gitment = new Gitment({
-        id: "深入理解JavaScript原型和原型链",
+        id: "React组件间的通信",
         owner: "yanm1ng",
         repo: "yanm1ng.github.io",
         oauth: {

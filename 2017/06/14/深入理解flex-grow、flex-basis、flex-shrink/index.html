@@ -5,6 +5,9 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   <meta name="description" content="yanm1ng&#39;s blog">
   <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
   <title>
     
       深入理解flex-grow、flex-basis、flex-shrink | Vexo
@@ -21,6 +24,10 @@
   <script src="/js/qrious.js"></script>
 <script src="/js/gitment.js"></script>
 </head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
   <body>
     <header class="header fixed-header">
   <div class="header-container">
@@ -172,7 +179,14 @@
 <script>
   (function () {
     var url = 'https://yanm1ng.github.io/2017/06/14/深入理解flex-grow、flex-basis、flex-shrink/';
-    $('#article-banner').geopattern(url)
+    var banner = 'undefined'
+    if (banner) {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
     $('.header').removeClass('fixed-header')
 
      // error image

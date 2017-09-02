@@ -5,6 +5,9 @@
   <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
   <meta name="description" content="yanm1ng&#39;s blog">
   <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
   <title>
     
       Project | Vexo
@@ -21,6 +24,10 @@
   <script src="/js/qrious.js"></script>
 <script src="/js/gitment.js"></script>
 </head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
   <body>
     <header class="header fixed-header">
   <div class="header-container">
@@ -127,7 +134,7 @@
           return (b.stargazers_count - a.stargazers_count)
         }).slice(0, 6)
         var cardHtml = repos.map(function(item) {
-          var description = item.description
+          var description = item.description || ""
           if (description.replace(/[\u0391-\uFFE5]/g, "aa").length > 72) {
             description = description.slice(0, 72) + '...'
           }
