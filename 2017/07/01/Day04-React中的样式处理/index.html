@@ -212,7 +212,7 @@
   (function () {
     var url = 'https://yanm1ng.github.io/2017/07/01/Day04-React中的样式处理/';
     var banner = 'http://file.muyutech.com/about.jpg'
-    if (banner) {
+    if (banner !== 'undefined') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
       })
