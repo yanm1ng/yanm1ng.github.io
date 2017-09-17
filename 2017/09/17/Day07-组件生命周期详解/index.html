@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      组件生命周期详解 | Vexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Vexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>组件生命周期详解</h2>
+  <p class="post-date">2017-09-17</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body">
+  <article class="post-article">
+    <section class="markdown-content"><p>React 组件的生命周期主要通过3个阶段进行管理——mounting、receiveProps、unmounting，他们负责通知组件当前所处的阶段，应该执行生命周期中的哪个步骤。</p>
+<p>这3个阶段对应3个方法，分别为：mountComponent、updateComponent 和 unmountComponent，每个方法都提供了几种处理方法，其中带 will 前缀的方法在进入状态前调用，带 did 前缀的方法在进入状态后调用。三个阶段包含5种处理方法以及2中特殊状态处理方法。</p>
+<h2 id="1-mountComponent会触发5个钩子函数"><a href="#1-mountComponent会触发5个钩子函数" class="headerlink" title="1.mountComponent会触发5个钩子函数"></a>1.mountComponent会触发5个钩子函数</h2><p><strong>getDefaultProps()</strong></p>
+<p>设置默认的props，当使用 ES6 classes 构建 React 组件时也可以用 defaultProps 设置组件的默认属性。该方法在整个生命周期中只执行一次，这样所有实例初始化的 props 将会被共享。</p>
+<p><strong>getInitialState()</strong></p>
+<p>在使用es6的class语法时是没有这个钩子函数的，可以直接在constructor中定义this.state。此时可以访问this.props。</p>
+<p><strong>componentWillMount()</strong></p>
+<p>组件初始化时只调用，以后组件更新不调用，整个生命周期只调用一次。若在此时调用 setState 方法是不会触发 re-render 的，而是会进行 state 的合并，并且 componentWillMount 中的 state 不是最新的，在 render 之后在可以获取最新的 state。</p>
+<p><strong>render()</strong></p>
+<p>React 最重要的步骤，创建虚拟DOM，进行diff算法，更新DOM树都在此进行。此时就不能更改state了。</p>
+<p><strong>componentDidMount()</strong></p>
+<p>组件渲染之后调用，可以通过this.getDOMNode()获取和操作DOM节点。</p>
+<p>其实 mountComponent 本质是通过<strong>递归</strong>渲染内容的，由于递归的特性，父组件的 componentWillMount 在其子组件的 componentWillMount 之前调用，而父组件的 componentDidMount 在其子组件的 componentDidMount 之后调用。</p>
+<p><img src="https://pic3.zhimg.com/ec65c26c1123f588c2a57e40423cf6fa_b.png" alt=""></p>
+<h2 id="2-updateComponent会触发5个钩子函数"><a href="#2-updateComponent会触发5个钩子函数" class="headerlink" title="2.updateComponent会触发5个钩子函数"></a>2.updateComponent会触发5个钩子函数</h2><p><strong>componentWillReceivePorps(nextProps)</strong></p>
+<p>组件初始化时不调用，组件接受新的props时调用。</p>
+<p><strong>shouldComponentUpdate(nextProps, nextState)</strong></p>
+<p>React 性能优化非常重要的一环。组件接受新的 state 或者 props 时调用，我们可以设置在此对比前后两个 props 和 state 是否相同，如果相同则返回 false 阻止 re-render，因为相同的属性状态一定会生成相同的 DOM 树，这样就不需要进行diff算法对比，节省大量性能，尤其是在DOM结构复杂的时候。不过调用this.forceUpdate会跳过此步骤。</p>
+<p><strong>componentWillUpdate(nextProps, nextState)</strong></p>
+<p>组件初始化时不调用，只有在组件将要更新时才调用，禁止在此时调用 setState，这会造成循环调用，直至耗光浏览器内存。</p>
+<p><strong>render()</strong></p>
+<p>不多说</p>
+<p><strong>componentDidUpdate()</strong></p>
+<p>组件初始化时不调用，组件更新完成后调用，此时可以获取DOM节点。</p>
+<p>updateComponent 本质上也是通过递归完成的，由于递归的特性，父组件的 componentWillUpdate 在其子组件的 componentWillUpdate 之前调用，而父组件的 componentDidUpdate 在其子组件的 componentDidUpdate 之后调用。</p>
+<p><img src="https://pic1.zhimg.com/34357c2a84e53be3619667ffa4ebbc90_b.png" alt=""></p>
+<h2 id="3-unmountComponent触发1个钩子函数"><a href="#3-unmountComponent触发1个钩子函数" class="headerlink" title="3.unmountComponent触发1个钩子函数"></a>3.unmountComponent触发1个钩子函数</h2><p><strong>componentWillUnmount()</strong></p>
+<p>组件将要卸载时调用，重置所有相关参数、更新队列、以及更新状态，如果此时调用 setState 是不会触发 re-render 的，因为所有更新队列和更新状态都被重置为 null，并且清除了公共类。一般我们可以在这里清除一些事件监听和定时器。</p>
+<h2 id="4-生命周期图"><a href="#4-生命周期图" class="headerlink" title="4.生命周期图"></a>4.生命周期图</h2><p><img src="https://github.com/bailicangdu/pxq/blob/master/src/images/react-lifecycle.png" alt="img](https://github.com/bailicangdu/pxq/raw/master/src/images/react-lifecycle.png)"></p>
+</section>
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#react" >
+    <span class="tag-code">react</span>
+  </a>
+
+      </div>
+    
+    <div class="money-like">
+      <div class="reward-btn">
+        赏
+        <span class="money-code">
+          <span class="alipay-code">
+            <div class="code-image"></div>
+            <b>使用支付宝打赏</b>
+          </span>
+          <span class="wechat-code">
+            <div class="code-image"></div>
+            <b>使用微信打赏</b>
+          </span>
+        </span>
+      </div>
+      <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+    </div>
+    <div class="qrcode">
+      <canvas id="share-qrcode"></canvas>
+      <p class="notice">扫描二维码，分享此文章</p>
+    </div>
+    
+      <div id="comments"></div>
+    
+  </article>
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanm1ng.github.io/2017/09/17/Day07-组件生命周期详解/';
+    var banner = 'undefined'
+    if (banner !== 'undefined') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png') 
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      var imageW = $(this).width()
+      var imageH = $(this).height()
+      
+      var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+      zoom = zoom < 1 ? 1 : zoom
+      zoom = zoom > 2 ? 2 : zoom
+      var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+      $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+      $('.image-view-wrap').addClass('wrap-active')
+      $('.image-view-wrap img').css({
+        'width': `${imageW}`,
+        'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+      })
+      $('html').css('overflow', 'hidden')
+
+      $('.image-view-wrap').on('click', function() {
+        $(this).remove()
+        $('html').attr('style', '')
+      })
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig != "undefined") {
+      var gitment = new Gitment({
+        id: "组件生命周期详解",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine == 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>
