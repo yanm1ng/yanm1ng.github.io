@@ -115,6 +115,34 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2017/06/12/纯手工打造前端后端分离项目中的mock-server/">纯手工打造前端后端分离项目中的mock-server</a>
+      </h2>
+      <p class="article-date">June 12, 2017</p>
+      
+        
+  <a href="/tags#前端开发" >
+    <span class="tag-code">前端开发</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+为了更好的分工合作，让前端能在不依赖后端环境的情况下进行开发，其中一种手段就是为前端开发者提供一个web容器，这个本地环境就是 mock-server。
+
+数据mock可以有两种思路：
+
+在 client 端mock
+在 server 端mock
+
+第一种方式拦截了请求的发出，直接返回 m ...
+        
+      </div>
+      <a class="more" href="/2017/06/12/纯手工打造前端后端分离项目中的mock-server/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2017/06/09/深入理解JavaScript原型和原型链/">深入理解JavaScript原型和原型链</a>
       </h2>
       <p class="article-date">June 9, 2017</p>
@@ -179,7 +207,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -206,7 +234,7 @@
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';

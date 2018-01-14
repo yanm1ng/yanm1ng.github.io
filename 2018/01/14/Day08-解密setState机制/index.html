@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="description" content="yanm1ng&#39;s blog">
+  <meta name="keyword" content="hexo-theme, vuejs">
+  
+    <link rel="shortcut icon" href="/css/images/logo.png">
+  
+  <title>
+    
+      解密setState机制 | Vexo
+    
+  </title>
+  <link href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.css" rel="stylesheet">
+  <link href="//cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/plugins/gitment.css">
+  <script src="//cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+  <script src="//cdn.bootcss.com/geopattern/1.2.3/js/geopattern.min.js"></script>
+  <script src="//cdn.bootcss.com/nprogress/0.2.0/nprogress.min.js"></script>
+  <script src="/js/qrious.js"></script>
+<script src="/js/gitment.js"></script>
+</head>
+<div class="wechat-share">
+  <img src="/css/images/logo.png" />
+</div>
+
+  <body>
+    <header class="header fixed-header">
+  <div class="header-container">
+    <a class="home-link" href="/">
+      <div class="logo"></div>
+      <span>Vexo</span>
+    </a>
+    <ul class="right-list">
+      
+        <li class="list-item">
+          
+            <a href="/" class="item-link">Home</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/tags/" class="item-link">Tags</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/archives/" class="item-link">Archives</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/project/" class="item-link">Projects</a>
+          
+        </li>
+      
+        <li class="list-item">
+          
+            <a href="/about/" class="item-link">About</a>
+          
+        </li>
+      
+    </ul>
+    <div class="menu">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div class="menu-mask">
+      <ul class="menu-list">
+        
+          <li class="menu-item">
+            
+              <a href="/" class="menu-link">Home</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/tags/" class="menu-link">Tags</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/archives/" class="menu-link">Archives</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/project/" class="menu-link">Projects</a>
+            
+          </li>
+        
+          <li class="menu-item">
+            
+              <a href="/about/" class="menu-link">About</a>
+            
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</header>
+
+    <div id="article-banner">
+  <h2>解密setState机制</h2>
+  <p class="post-date">2018-01-14</p>
+  <div class="arrow-down">
+    <a href="javascript:;"></a>
+  </div>
+</div>
+<main class="app-body flex-box">
+  <!-- Article START -->
+  <article class="post-article">
+    <section class="markdown-content"><blockquote>
+<p>state 是 React 中的重要概念。React 是通过管理状态来实现对组件的管理，通过 this.state 来访问 state，通过 this.setState 来更新 state。</p>
+</blockquote>
+<p>setState 通过一个队列机制来实现 state 的更新。调用 setState 函数之后，会将需要更新的 state 合并放入状态队列，而不会立即更新 state，队列机制可以高效地批量更新 state。如果不通过 setState 而直接修改 state 的值，那么该 state 不会被放入到状态队列中，当下次调用 setState 并对状态队列进行合并是，将会忽略之前直接修改的 state，从而造成无法预知的错误。</p>
+<p>因此，应该使用 setState 方法来更新 state，同时 React 也正是利用状态队列机制实现了 setState 的异步更新，避免频繁地重复更新 state。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> nextState = <span class="keyword">this</span>._processPendingState(nextProps, nextState);</div><div class="line"></div><div class="line"><span class="keyword">var</span> shouldUpdate = <span class="keyword">this</span>._pendingForceUpdate || !inst.shouldComponentUpdate || inst.shouldComponentUpdate(nextProps, nextState, nextContext)</div></pre></td></tr></table></figure>
+<p>当调用 setState 时，实际上会执行 enqueueSetState 方法，并对 partialState 以及 _pendingStateQueue 更新队列进行合并操作，最终通过 enqueueUpdate 执行 state 更新。</p>
+<p>既然 setState 最终是通过 enqueueUpdate 执行 state 的更新，那么 enqueueUpdate 到底是如何更新 state 的呢？</p>
+<p><img src="https://pic1.zhimg.com/4fd1a155faedff00910dfabe5de143fc_b.png" alt=""></p>
+<p>上图是一个简化的 setState 调用栈。</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">enqueueUpdate</span>(<span class="params">component</span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line"></div><div class="line">  <span class="keyword">if</span> (!batchingStrategy.isBatchingUpdates) &#123;</div><div class="line">    batchingStrategy.batchedUpdates(enqueueUpdate, component);</div><div class="line">    <span class="keyword">return</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  dirtyComponents.push(component);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>若 isBatchingUpdates 为 true，则把当前组件（即调用了 setState 的组件）放入 dirtyComponents 数组中；否则 batchUpdate 所有队列中的更新。</p>
+<p>那么 batchingStrategy 究竟是何方神圣呢？其实它只是一个简单的对象，定义了一个 isBatchingUpdates 的布尔值，和一个 batchedUpdates 方法。下面是一段简化的定义代码：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> batchingStrategy = &#123;</div><div class="line">  <span class="attr">isBatchingUpdates</span>: <span class="literal">false</span>,</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  batchedUpdates: <span class="function"><span class="keyword">function</span>(<span class="params">callback, a, b, c, d, e</span>) </span>&#123;</div><div class="line">    <span class="comment">// ...</span></div><div class="line">    <span class="keyword">var</span> alreadyBatchingUpdates = ReactDefaultBatchingStrategy.isBatchingUpdates;</div><div class="line">    batchingStrategy.isBatchingUpdates = <span class="literal">true</span>;</div><div class="line">    <span class="keyword">if</span> (alreadyBatchingUpdates) &#123;</div><div class="line">      callback(a, b, c, d, e);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      transaction.perform(callback, <span class="literal">null</span>, a, b, c, d, e); </div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<p>注意 batchingStrategy 中的 <strong>batchedUpdates</strong> 方法中，有一个 transaction.perform 调用。这就引出了本文要介绍的核心概念 —— Transaction（事务）。</p>
+<p>熟悉 MySQL 的同学看到 Transaction 是否会心一笑？然而在 React 中 Transaction 的原理和行为和 MySQL 中并不完全相同，让我们从源码开始一步步开始了解。</p>
+<p>在 Transaction 的源码中有一幅特别的 ASCII 图，形象的解释了 Transaction 的作用。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><div class="line">/*</div><div class="line"> * </div><div class="line"> *                       wrappers (injected at creation time)</div><div class="line"> *                                      +        +</div><div class="line"> *                                      |        |</div><div class="line"> *                    +-----------------|--------|--------------+</div><div class="line"> *                    |                 v        |              |</div><div class="line"> *                    |      +---------------+   |              |</div><div class="line"> *                    |   +--|    wrapper1   |---|----+         |</div><div class="line"> *                    |   |  +---------------+   v    |         |</div><div class="line"> *                    |   |          +-------------+  |         |</div><div class="line"> *                    |   |     +----|   wrapper2  |--------+   |</div><div class="line"> *                    |   |     |    +-------------+  |     |   |</div><div class="line"> *                    |   |     |                     |     |   |</div><div class="line"> *                    |   v     v                     v     v   | wrapper</div><div class="line"> *                    | +---+ +---+   +---------+   +---+ +---+ | invariants</div><div class="line"> * perform(anyMethod) | |   | |   |   |         |   |   | |   | | maintained</div><div class="line"> * +-----------------&gt;|-|---|-|---|--&gt;|anyMethod|---|---|-|---|-|--------&gt;</div><div class="line"> *                    | |   | |   |   |         |   |   | |   | |</div><div class="line"> *                    | |   | |   |   |         |   |   | |   | |</div><div class="line"> *                    | |   | |   |   |         |   |   | |   | |</div><div class="line"> *                    | +---+ +---+   +---------+   +---+ +---+ |</div><div class="line"> *                    |  initialize                    close    |</div><div class="line"> *                    +-----------------------------------------+</div><div class="line"> * </div><div class="line"> */</div></pre></td></tr></table></figure>
+<p>简单地说，一个所谓的 Transaction 就是将需要执行的 method 使用 wrapper 封装起来，再通过 Transaction 提供的 perform 方法执行。而在 perform 之前，先执行所有 wrapper 中的 initialize 方法；perform 完成之后（即 method 执行后）再执行所有的 close 方法。一组 initialize 及 close 方法称为一个 wrapper，从上面的示例图中可以看出 Transaction 支持多个 wrapper 叠加。</p>
+<p>具体到实现上，React 中的 Transaction 提供了一个 mixin 方便其它模块实现自己需要的事务。而要使用 Transaction 的模块，除了需要把 Transaction 的 mixin 混入自己的事务实现中外，还需要额外实现一个抽象的 getTransactionWrappers 接口。这个接口是 Transaction 用来获取所有需要封装的前置方法（initialize）和收尾方法（close）的，因此它需要返回一个数组的对象，每个对象分别有 key 为 initialize 和 close 的方法。</p>
+<p>一个简单的使用事物的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> Transaction = <span class="built_in">require</span>(<span class="string">'./Transation'</span>);</div><div class="line"></div><div class="line"><span class="keyword">var</span> MyTransaction = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  </div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">Object</span>.assign(MyTransaction.protoType, Transaction.Mixin, &#123;</div><div class="line">  <span class="attr">getTransactionWrappers</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> [&#123;</div><div class="line">      <span class="attr">initialize</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'before perform'</span>)</div><div class="line">      &#125;,</div><div class="line">      <span class="attr">close</span>: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'after perform'</span>)</div><div class="line">      &#125;</div><div class="line">    &#125;]</div><div class="line">  &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="keyword">var</span> testTransaction = <span class="keyword">new</span> MyTransaction();</div><div class="line"><span class="keyword">var</span> testMethod = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'method called'</span>)</div><div class="line">&#125;;</div><div class="line">testTransaction.perform(testMethod);</div><div class="line"></div><div class="line"><span class="comment">// console</span></div><div class="line"><span class="comment">// before perform</span></div><div class="line"><span class="comment">// method called</span></div><div class="line"><span class="comment">// after perform</span></div></pre></td></tr></table></figure>
+</section>
+    <!-- Tags START -->
+    
+      <div class="tags">
+        <span>Tags:</span>
+        
+  <a href="/tags#react" >
+    <span class="tag-code">react</span>
+  </a>
+
+      </div>
+    
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
+          </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
+      </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
+    <div class="qrcode">
+      <canvas id="share-qrcode"></canvas>
+      <p class="notice">扫描二维码，分享此文章</p>
+    </div>
+    <!-- 二维码 END -->
+    
+      <!-- Gitment START -->
+      <div id="comments"></div>
+      <!-- Gitment END -->
+    
+  </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="nav">none</ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
+</main>
+
+<script>
+  (function () {
+    var url = 'https://yanm1ng.github.io/2018/01/14/Day08-解密setState机制/';
+    var banner = 'undefined'
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
+      $('#article-banner').css({
+        'background-image': 'url(' + banner + ')'
+      })
+    } else {
+      $('#article-banner').geopattern(url)
+    }
+    $('.header').removeClass('fixed-header')
+
+     // error image
+    $(".markdown-content img").on('error', function() {
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
+    })
+
+    // zoom image
+    $(".markdown-content img").on('click', function() {
+      var src = $(this).attr('src')
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
+
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
+
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
+    })
+
+    // qrcode
+    var qr = new QRious({
+      element: document.getElementById('share-qrcode'),
+      value: document.location.href
+    });
+
+    // gitment
+    var gitmentConfig = "yanm1ng";
+    if (gitmentConfig !== 'undefined') {
+      var gitment = new Gitment({
+        id: "解密setState机制",
+        owner: "yanm1ng",
+        repo: "yanm1ng.github.io",
+        oauth: {
+          client_id: "0f87e490e00ee3fd87ef",
+          client_secret: "4a9d2b148e7971c2201ad12131ce8bf8159ccd2e"
+        },
+        theme: {
+          render(state, instance) {
+            const container = document.createElement('div')
+            container.lang = "en-US"
+            container.className = 'gitment-container gitment-root-container'
+            container.appendChild(instance.renderHeader(state, instance))
+            container.appendChild(instance.renderEditor(state, instance))
+            container.appendChild(instance.renderComments(state, instance))
+            container.appendChild(instance.renderFooter(state, instance))
+            return container;
+          }
+        }
+      })
+      gitment.render(document.getElementById('comments'))
+    }
+  })();
+</script>
+
+    <div class="scroll-top">
+  <span class="arrow-icon"></span>
+</div>
+    <footer class="app-footer">
+  <p class="copyright">
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    <br>
+    Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
+  </p>
+</footer>
+
+<script>
+  function async(u, c) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+</script>
+<script>
+  async("//cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js", function(){
+    FastClick.attach(document.body);
+  })
+</script>
+
+<script>
+  var hasLine = 'false';
+  async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
+    $('figure pre').each(function(i, block) {
+      var figure = $(this).parents('figure');
+      if (hasLine === 'false') {
+        figure.find('.gutter').hide();
+      }
+      var lang = figure.attr('class').split(' ')[1] || 'code';
+      var codeHtml = $(this).html();
+      var codeTag = document.createElement('code');
+      codeTag.className = lang;
+      codeTag.innerHTML = codeHtml;
+      $(this).attr('class', '').empty().html(codeTag);
+      figure.attr('data-lang', lang.toUpperCase());
+      hljs.highlightBlock(block);
+    });
+  })
+</script>
+<!-- Baidu Tongji -->
+
+<script src="/js/script.js"></script>
+  </body>
+</html>

@@ -115,6 +115,29 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2018/01/14/Day08-解密setState机制/">解密setState机制</a>
+      </h2>
+      <p class="article-date">January 14, 2018</p>
+      
+        
+  <a href="/tags#react" >
+    <span class="tag-code">react</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+state 是 React 中的重要概念。React 是通过管理状态来实现对组件的管理，通过 this.state 来访问 state，通过 this.setState 来更新 state。
+
+setState 通过一个队列机制来实现 state 的更新。调用 setState 函数之后， ...
+        
+      </div>
+      <a class="more" href="/2018/01/14/Day08-解密setState机制/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2017/09/17/Day07-组件生命周期详解/">组件生命周期详解</a>
       </h2>
       <p class="article-date">September 17, 2017</p>
@@ -127,8 +150,8 @@
       
       <div class="article-summary">
         
-          React 组件的生命周期主要通过3个阶段进行管理——mounting、receiveProps、unmounting，他们负责通知组件当前所处的阶段，应该执行生命周期中的哪个步骤。
-这3个阶段对应3个方法，分别为：mountComponent、updateComponent 和 unmou ...
+          &gt;&gt;&gt; from gnassl import * &gt;&gt;&gt; GPS_START_DATE datetime.date(1980, 11, 21)&gt;&gt;&gt; GPS_START_DATEdatetime.date(1980, 11, 21)
+Re ...
         
       </div>
       <a class="more" href="/2017/09/17/Day07-组件生命周期详解/">Read more</a>
@@ -201,30 +224,6 @@ React 是以组件组合的形式组织的，组件因为彼此是相互独立�
       <a class="more" href="/2017/07/01/Day04-React中的样式处理/">Read more</a>
     </article>
   
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2017/06/30/Day03-React使用表单的正确姿势/">React使用表单的正确姿势</a>
-      </h2>
-      <p class="article-date">June 30, 2017</p>
-      
-        
-  <a href="/tags#react" >
-    <span class="tag-code">react</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-在 WEB 应用开发中，表单的作用尤为重要，正是由于表单的存在才使得用户能够与 WEB 应用进行交互。其中表单在实际应用中还涉及到表单数据校验等复杂工作。
-
-1.应用表单组件文本框文本框包含单行文本框 input 和多行文本框 textarea。
-import React from 're ...
-        
-      </div>
-      <a class="more" href="/2017/06/30/Day03-React使用表单的正确姿势/">Read more</a>
-    </article>
-  
 
   
     <div class="guide-pager">
@@ -244,7 +243,7 @@ import React from 're ...
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -271,7 +270,7 @@ import React from 're ...
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';

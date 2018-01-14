@@ -118,9 +118,11 @@
     <a href="javascript:;"></a>
   </div>
 </div>
-<main class="app-body">
+<main class="app-body flex-box">
+  <!-- Article START -->
   <article class="post-article">
-    <section class="markdown-content"><p>React 组件的生命周期主要通过3个阶段进行管理——mounting、receiveProps、unmounting，他们负责通知组件当前所处的阶段，应该执行生命周期中的哪个步骤。</p>
+    <section class="markdown-content"><figure class="highlight py"><table><tr><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="keyword">from</span> gnassl <span class="keyword">import</span> * </div><div class="line"></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>GPS_START_DATE </div><div class="line">datetime.date(<span class="number">1980</span>, <span class="number">11</span>, <span class="number">21</span>)</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>GPS_START_DATE</div><div class="line">datetime.date(<span class="number">1980</span>, <span class="number">11</span>, <span class="number">21</span>)</div></pre></td></tr></table></figure>
+<p>React 组件的生命周期主要通过3个阶段进行管理——mounting、receiveProps、unmounting，他们负责通知组件当前所处的阶段，应该执行生命周期中的哪个步骤。</p>
 <p>这3个阶段对应3个方法，分别为：mountComponent、updateComponent 和 unmountComponent，每个方法都提供了几种处理方法，其中带 will 前缀的方法在进入状态前调用，带 did 前缀的方法在进入状态后调用。三个阶段包含5种处理方法以及2中特殊状态处理方法。</p>
 <h2 id="1-mountComponent会触发5个钩子函数"><a href="#1-mountComponent会触发5个钩子函数" class="headerlink" title="1.mountComponent会触发5个钩子函数"></a>1.mountComponent会触发5个钩子函数</h2><p><strong>getDefaultProps()</strong></p>
 <p>设置默认的props，当使用 ES6 classes 构建 React 组件时也可以用 defaultProps 设置组件的默认属性。该方法在整个生命周期中只执行一次，这样所有实例初始化的 props 将会被共享。</p>
@@ -150,6 +152,7 @@
 <p>组件将要卸载时调用，重置所有相关参数、更新队列、以及更新状态，如果此时调用 setState 是不会触发 re-render 的，因为所有更新队列和更新状态都被重置为 null，并且清除了公共类。一般我们可以在这里清除一些事件监听和定时器。</p>
 <h2 id="4-生命周期图"><a href="#4-生命周期图" class="headerlink" title="4.生命周期图"></a>4.生命周期图</h2><p><img src="https://github.com/bailicangdu/pxq/blob/master/src/images/react-lifecycle.png" alt="img](https://github.com/bailicangdu/pxq/raw/master/src/images/react-lifecycle.png)"></p>
 </section>
+    <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
@@ -160,37 +163,59 @@
 
       </div>
     
-    <div class="money-like">
-      <div class="reward-btn">
-        赏
-        <span class="money-code">
-          <span class="alipay-code">
-            <div class="code-image"></div>
-            <b>使用支付宝打赏</b>
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
           </span>
-          <span class="wechat-code">
-            <div class="code-image"></div>
-            <b>使用微信打赏</b>
-          </span>
-        </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
       </div>
-      <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
-    </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
     <div class="qrcode">
       <canvas id="share-qrcode"></canvas>
       <p class="notice">扫描二维码，分享此文章</p>
     </div>
+    <!-- 二维码 END -->
     
+      <!-- Gitment START -->
       <div id="comments"></div>
+      <!-- Gitment END -->
     
   </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-mountComponent会触发5个钩子函数"><span class="toc-nav-text">1.mountComponent会触发5个钩子函数</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-updateComponent会触发5个钩子函数"><span class="toc-nav-text">2.updateComponent会触发5个钩子函数</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-unmountComponent触发1个钩子函数"><span class="toc-nav-text">3.unmountComponent触发1个钩子函数</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-生命周期图"><span class="toc-nav-text">4.生命周期图</span></a></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
 </main>
 
 <script>
   (function () {
     var url = 'https://yanm1ng.github.io/2017/09/17/Day07-组件生命周期详解/';
     var banner = 'undefined'
-    if (banner !== 'undefined') {
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
       })
@@ -201,32 +226,37 @@
 
      // error image
     $(".markdown-content img").on('error', function() {
-      $(this).attr('src', 'http://file.muyutech.com/error-img.png') 
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
     })
 
     // zoom image
     $(".markdown-content img").on('click', function() {
       var src = $(this).attr('src')
-      var imageW = $(this).width()
-      var imageH = $(this).height()
-      
-      var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
-      zoom = zoom < 1 ? 1 : zoom
-      zoom = zoom > 2 ? 2 : zoom
-      var transY = (($(window).height() - imageH) / 2).toFixed(2)
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
 
-      $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
-      $('.image-view-wrap').addClass('wrap-active')
-      $('.image-view-wrap img').css({
-        'width': `${imageW}`,
-        'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
-      })
-      $('html').css('overflow', 'hidden')
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
 
-      $('.image-view-wrap').on('click', function() {
-        $(this).remove()
-        $('html').attr('style', '')
-      })
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
     })
 
     // qrcode
@@ -237,7 +267,7 @@
 
     // gitment
     var gitmentConfig = "yanm1ng";
-    if (gitmentConfig != "undefined") {
+    if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
         id: "组件生命周期详解",
         owner: "yanm1ng",
@@ -269,7 +299,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -296,7 +326,7 @@
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';

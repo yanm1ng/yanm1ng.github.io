@@ -118,13 +118,13 @@
 <main class="app-body">
   <div id="tag-cloud">
     
-      <a class="tag3" data-name="tag-react">react</a>
+      <a class="tag1" data-name="tag-react">react</a>
     
-      <a class="tag1" data-name="tag-深入理解系列">深入理解系列</a>
+      <a class="tag2" data-name="tag-深入理解系列">深入理解系列</a>
     
       <a class="tag3" data-name="tag-php">php</a>
     
-      <a class="tag1" data-name="tag-前端开发">前端开发</a>
+      <a class="tag2" data-name="tag-前端开发">前端开发</a>
     
   </div>
   
@@ -151,13 +151,13 @@
         
         <ul class="tag-preview">
           <li>
-            <a href="/2017/09/02/Day05-组件间的通信/">React组件间的通信</a>
+            <a href="/2017/07/01/Day04-React中的样式处理/">React中的样式处理</a>
           </li>
         </ul>
         
         <ul class="tag-preview">
           <li>
-            <a href="/2017/07/01/Day04-React中的样式处理/">React中的样式处理</a>
+            <a href="/2017/09/02/Day05-组件间的通信/">React组件间的通信</a>
           </li>
         </ul>
         
@@ -170,6 +170,12 @@
         <ul class="tag-preview">
           <li>
             <a href="/2017/09/17/Day07-组件生命周期详解/">组件生命周期详解</a>
+          </li>
+        </ul>
+        
+        <ul class="tag-preview">
+          <li>
+            <a href="/2018/01/14/Day08-解密setState机制/">解密setState机制</a>
           </li>
         </ul>
         
@@ -242,7 +248,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -269,7 +275,7 @@
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';

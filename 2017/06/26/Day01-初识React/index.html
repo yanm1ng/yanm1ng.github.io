@@ -118,7 +118,8 @@
     <a href="javascript:;"></a>
   </div>
 </div>
-<main class="app-body">
+<main class="app-body flex-box">
+  <!-- Article START -->
   <article class="post-article">
     <section class="markdown-content"><h2 id="1-React特点"><a href="#1-React特点" class="headerlink" title="1. React特点"></a>1. React特点</h2><h3 id="Virtual-DOM"><a href="#Virtual-DOM" class="headerlink" title="Virtual DOM"></a>Virtual DOM</h3><p>我们知道，在传统的前端开发中，一个 HTML 页面对应一个 DOM 树。每次需要更新页面时，都是对响应的 DOM 进行操作。DOM 的操作成本很高，性能消耗最大，这也是为什么这几年前端涌现出各种 MVVM 框架的主要原因。而 React 把真实的 DOM 树转化为 JavaScript 对象，这就是 Virtual DOM。每次数据更新后，重新计算 Virtual DOM，并且和上次的 Virtual DOM 进行对比，对发生改变的部分进行批量更新（React 还提供 shouldComponentUpdate 生命周期函数来减少不必要的 Virtual DOM 对比过程，以保证性能）。</p>
 <h3 id="JSX"><a href="#JSX" class="headerlink" title="JSX"></a>JSX</h3><p>JSX 像是在 Javascript 代码里直接写 XML 的语法，实质上这只是一个语法糖，每一个 XML 标签都会被 JSX 转换工具转换成纯 Javascript 代码。使用 JSX 可以使得组件的结构和组件之间的关系变得更加清晰，易于代码维护。React 官方在早期为 JSX 语法提供了一套解析工具 JSTransform，目前已经不再维护。现在主要使用的是 Babel 的 JSX 解析器。</p>
@@ -160,6 +161,7 @@
 <h3 id="组件更新"><a href="#组件更新" class="headerlink" title="组件更新"></a>组件更新</h3><p>更新过程指的是父组件向下传递 props 或 组件自身执行 setState 方法时发生的一系列更新动作。如果组件的 state 更新了，那么会依次执行 shouldComponentUpdate、componentWillUpdate、render 和 componentDidUpdate。</p>
 <h3 id="组件卸载"><a href="#组件卸载" class="headerlink" title="组件卸载"></a>组件卸载</h3><p>组件卸载非常简单，只有 componentWillUnmount 这一个卸载前的方法，在这个方法中我们通常会进行一些清理方法，如事件回收和清除定时器。</p>
 </section>
+    <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
@@ -170,37 +172,59 @@
 
       </div>
     
-    <div class="money-like">
-      <div class="reward-btn">
-        赏
-        <span class="money-code">
-          <span class="alipay-code">
-            <div class="code-image"></div>
-            <b>使用支付宝打赏</b>
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
           </span>
-          <span class="wechat-code">
-            <div class="code-image"></div>
-            <b>使用微信打赏</b>
-          </span>
-        </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
       </div>
-      <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
-    </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
     <div class="qrcode">
       <canvas id="share-qrcode"></canvas>
       <p class="notice">扫描二维码，分享此文章</p>
     </div>
+    <!-- 二维码 END -->
     
+      <!-- Gitment START -->
       <div id="comments"></div>
+      <!-- Gitment END -->
     
   </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-React特点"><span class="toc-nav-text">1. React特点</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#Virtual-DOM"><span class="toc-nav-text">Virtual DOM</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#JSX"><span class="toc-nav-text">JSX</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#组件化"><span class="toc-nav-text">组件化</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-React数据流"><span class="toc-nav-text">2. React数据流</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-React生命周期"><span class="toc-nav-text">3.React生命周期</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#组件挂载"><span class="toc-nav-text">组件挂载</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#组件更新"><span class="toc-nav-text">组件更新</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#组件卸载"><span class="toc-nav-text">组件卸载</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
 </main>
 
 <script>
   (function () {
     var url = 'https://yanm1ng.github.io/2017/06/26/Day01-初识React/';
     var banner = 'undefined'
-    if (banner !== 'undefined') {
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
       })
@@ -211,32 +235,37 @@
 
      // error image
     $(".markdown-content img").on('error', function() {
-      $(this).attr('src', 'http://file.muyutech.com/error-img.png') 
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
     })
 
     // zoom image
     $(".markdown-content img").on('click', function() {
       var src = $(this).attr('src')
-      var imageW = $(this).width()
-      var imageH = $(this).height()
-      
-      var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
-      zoom = zoom < 1 ? 1 : zoom
-      zoom = zoom > 2 ? 2 : zoom
-      var transY = (($(window).height() - imageH) / 2).toFixed(2)
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
 
-      $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
-      $('.image-view-wrap').addClass('wrap-active')
-      $('.image-view-wrap img').css({
-        'width': `${imageW}`,
-        'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
-      })
-      $('html').css('overflow', 'hidden')
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
 
-      $('.image-view-wrap').on('click', function() {
-        $(this).remove()
-        $('html').attr('style', '')
-      })
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
     })
 
     // qrcode
@@ -247,7 +276,7 @@
 
     // gitment
     var gitmentConfig = "yanm1ng";
-    if (gitmentConfig != "undefined") {
+    if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
         id: "初识React",
         owner: "yanm1ng",
@@ -279,7 +308,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -306,7 +335,7 @@
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';

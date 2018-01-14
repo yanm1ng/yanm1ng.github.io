@@ -118,7 +118,8 @@
     <a href="javascript:;"></a>
   </div>
 </div>
-<main class="app-body">
+<main class="app-body flex-box">
+  <!-- Article START -->
   <article class="post-article">
     <section class="markdown-content"><blockquote>
 <p>在 WEB 应用开发中，表单的作用尤为重要，正是由于表单的存在才使得用户能够与 WEB 应用进行交互。其中表单在实际应用中还涉及到表单数据校验等复杂工作。</p>
@@ -154,6 +155,7 @@
 <h2 id="4-对比受控组件与非受控组件"><a href="#4-对比受控组件与非受控组件" class="headerlink" title="4.对比受控组件与非受控组件"></a>4.对比受控组件与非受控组件</h2><h3 id="性能"><a href="#性能" class="headerlink" title="性能"></a>性能</h3><p>在受控组件中，每次表单的值发生变化都会调用一次 onChange 事件处理器，这确实会有一些性能上的损耗。这个问题可以通过 Flux/Redux 架构的方式来达到统一的组件状态。</p>
 <h3 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h3><p>受控组件需要额外添加 onChange 的事件绑定，并且可以对表单的值进行校验等操作。 非受控组件由于组件状态不会受到应用状态的控制，因此多了局部的内部状态，这是 React 不希望看到的。</p>
 </section>
+    <!-- Tags START -->
     
       <div class="tags">
         <span>Tags:</span>
@@ -164,37 +166,59 @@
 
       </div>
     
-    <div class="money-like">
-      <div class="reward-btn">
-        赏
-        <span class="money-code">
-          <span class="alipay-code">
-            <div class="code-image"></div>
-            <b>使用支付宝打赏</b>
+    <!-- Tags END -->
+    <!-- 打赏 START -->
+    
+      <div class="money-like">
+        <div class="reward-btn">
+          赏
+          <span class="money-code">
+            <span class="alipay-code">
+              <div class="code-image"></div>
+              <b>使用支付宝打赏</b>
+            </span>
+            <span class="wechat-code">
+              <div class="code-image"></div>
+              <b>使用微信打赏</b>
+            </span>
           </span>
-          <span class="wechat-code">
-            <div class="code-image"></div>
-            <b>使用微信打赏</b>
-          </span>
-        </span>
+        </div>
+        <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
       </div>
-      <p class="notice">若你觉得我的文章对你有帮助，欢迎点击上方按钮对我打赏</p>
-    </div>
+    
+    <!-- 打赏 END -->
+    <!-- 二维码 START -->
     <div class="qrcode">
       <canvas id="share-qrcode"></canvas>
       <p class="notice">扫描二维码，分享此文章</p>
     </div>
+    <!-- 二维码 END -->
     
+      <!-- Gitment START -->
       <div id="comments"></div>
+      <!-- Gitment END -->
     
   </article>
+  <!-- Article END -->
+  <!-- Catalog START -->
+  
+    <aside class="catalog-container">
+  <div class="toc-main">
+    <strong class="toc-title">Catalog</strong>
+    
+      <ol class="toc-nav"><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#1-应用表单组件"><span class="toc-nav-text">1.应用表单组件</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#文本框"><span class="toc-nav-text">文本框</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#单选框和复选框"><span class="toc-nav-text">单选框和复选框</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#下拉选择"><span class="toc-nav-text">下拉选择</span></a></li></ol></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#2-受控组件"><span class="toc-nav-text">2.受控组件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#3-非受控组件"><span class="toc-nav-text">3.非受控组件</span></a></li><li class="toc-nav-item toc-nav-level-2"><a class="toc-nav-link" href="#4-对比受控组件与非受控组件"><span class="toc-nav-text">4.对比受控组件与非受控组件</span></a><ol class="toc-nav-child"><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#性能"><span class="toc-nav-text">性能</span></a></li><li class="toc-nav-item toc-nav-level-3"><a class="toc-nav-link" href="#事件绑定"><span class="toc-nav-text">事件绑定</span></a></li></ol></li></ol>
+    
+  </div>
+</aside>
+  
+  <!-- Catalog END -->
 </main>
 
 <script>
   (function () {
     var url = 'https://yanm1ng.github.io/2017/06/30/Day03-React使用表单的正确姿势/';
     var banner = 'undefined'
-    if (banner !== 'undefined') {
+    if (banner !== '' && banner !== 'undefined' && banner !== 'null') {
       $('#article-banner').css({
         'background-image': 'url(' + banner + ')'
       })
@@ -205,32 +229,37 @@
 
      // error image
     $(".markdown-content img").on('error', function() {
-      $(this).attr('src', 'http://file.muyutech.com/error-img.png') 
+      $(this).attr('src', 'http://file.muyutech.com/error-img.png')
+      $(this).css({
+        'cursor': 'default'
+      })
     })
 
     // zoom image
     $(".markdown-content img").on('click', function() {
       var src = $(this).attr('src')
-      var imageW = $(this).width()
-      var imageH = $(this).height()
-      
-      var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
-      zoom = zoom < 1 ? 1 : zoom
-      zoom = zoom > 2 ? 2 : zoom
-      var transY = (($(window).height() - imageH) / 2).toFixed(2)
+      if (src !== 'http://file.muyutech.com/error-img.png') {
+        var imageW = $(this).width()
+        var imageH = $(this).height()
+        
+        var zoom = ($(window).width() * 0.95 / imageW).toFixed(2)
+        zoom = zoom < 1 ? 1 : zoom
+        zoom = zoom > 2 ? 2 : zoom
+        var transY = (($(window).height() - imageH) / 2).toFixed(2)
 
-      $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
-      $('.image-view-wrap').addClass('wrap-active')
-      $('.image-view-wrap img').css({
-        'width': `${imageW}`,
-        'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
-      })
-      $('html').css('overflow', 'hidden')
+        $('body').append('<div class="image-view-wrap"><div class="image-view-inner"><img src="'+ src +'" /></div></div>')
+        $('.image-view-wrap').addClass('wrap-active')
+        $('.image-view-wrap img').css({
+          'width': `${imageW}`,
+          'transform': `translate3d(0, ${transY}px, 0) scale3d(${zoom}, ${zoom}, 1)`
+        })
+        $('html').css('overflow', 'hidden')
 
-      $('.image-view-wrap').on('click', function() {
-        $(this).remove()
-        $('html').attr('style', '')
-      })
+        $('.image-view-wrap').on('click', function() {
+          $(this).remove()
+          $('html').attr('style', '')
+        })
+      }
     })
 
     // qrcode
@@ -241,7 +270,7 @@
 
     // gitment
     var gitmentConfig = "yanm1ng";
-    if (gitmentConfig != "undefined") {
+    if (gitmentConfig !== 'undefined') {
       var gitment = new Gitment({
         id: "React使用表单的正确姿势",
         owner: "yanm1ng",
@@ -273,7 +302,7 @@
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -300,7 +329,7 @@
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';

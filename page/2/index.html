@@ -115,6 +115,30 @@
   
     <article class="article-card">
       <h2 class="article-head">
+        <a href="/2017/06/30/Day03-React使用表单的正确姿势/">React使用表单的正确姿势</a>
+      </h2>
+      <p class="article-date">June 30, 2017</p>
+      
+        
+  <a href="/tags#react" >
+    <span class="tag-code">react</span>
+  </a>
+
+      
+      <div class="article-summary">
+        
+          
+在 WEB 应用开发中，表单的作用尤为重要，正是由于表单的存在才使得用户能够与 WEB 应用进行交互。其中表单在实际应用中还涉及到表单数据校验等复杂工作。
+
+1.应用表单组件文本框文本框包含单行文本框 input 和多行文本框 textarea。
+import React from 're ...
+        
+      </div>
+      <a class="more" href="/2017/06/30/Day03-React使用表单的正确姿势/">Read more</a>
+    </article>
+  
+    <article class="article-card">
+      <h2 class="article-head">
         <a href="/2017/06/28/Day02-React事件系统/">React事件系统</a>
       </h2>
       <p class="article-date">June 28, 2017</p>
@@ -198,34 +222,6 @@ setState之后发生了什么？调用 setState() 函数之后，React 会将传
       <a class="more" href="/2017/06/14/深入理解flex-grow、flex-basis、flex-shrink/">Read more</a>
     </article>
   
-    <article class="article-card">
-      <h2 class="article-head">
-        <a href="/2017/06/12/纯手工打造前端后端分离项目中的mock-server/">纯手工打造前端后端分离项目中的mock-server</a>
-      </h2>
-      <p class="article-date">June 12, 2017</p>
-      
-        
-  <a href="/tags#前端开发" >
-    <span class="tag-code">前端开发</span>
-  </a>
-
-      
-      <div class="article-summary">
-        
-          
-为了更好的分工合作，让前端能在不依赖后端环境的情况下进行开发，其中一种手段就是为前端开发者提供一个web容器，这个本地环境就是 mock-server。
-
-数据mock可以有两种思路：
-
-在 client 端mock
-在 server 端mock
-
-第一种方式拦截了请求的发出，直接返回 m ...
-        
-      </div>
-      <a class="more" href="/2017/06/12/纯手工打造前端后端分离项目中的mock-server/">Read more</a>
-    </article>
-  
 
   
     <div class="guide-pager">
@@ -245,7 +241,7 @@ setState之后发生了什么？调用 setState() 函数之后，React 会将传
 </div>
     <footer class="app-footer">
   <p class="copyright">
-    &copy; 2017 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
+    &copy; 2018 | Proudly powered by <a href="https://hexo.io" target="_blank">Hexo</a>
     <br>
     Theme by <a href="https://github.com/yanm1ng">yanm1ng</a>
   </p>
@@ -272,7 +268,7 @@ setState之后发生了什么？调用 setState() 函数之后，React 会将传
   async("//cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js", function(){
     $('figure pre').each(function(i, block) {
       var figure = $(this).parents('figure');
-      if (hasLine == 'false') {
+      if (hasLine === 'false') {
         figure.find('.gutter').hide();
       }
       var lang = figure.attr('class').split(' ')[1] || 'code';
